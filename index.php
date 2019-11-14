@@ -1,48 +1,26 @@
 <?php 
 require_once './commons/db.php';
-// tạo dump data cho bảng roles
-$roles = [
-	['name' => 'member', 'status' => 1],
-	['name' => 'admin', 'status' => 1]
-];
-
-foreach ($roles as $key => $value) {
-	extract($value)
-	$sqlQuery = "insert into roles (name, status)
-				value ('$name', $status)";
-	execQuery($sqlQuery);
-}
-
-
-// tạo dump data cho bảng user
-$users = [
-	[
-		'name' => 'Đào Hải Long',
-		'email' => 'longdh@gmail.com',
-		'password' => password_hash('123456', PASSWORD_DEFAULT),
-		'role_id'=> 1
-	],
-	[
-		'name' => 'Đào Hải Hổ',
-		'email' => 'hodh@gmail.com',
-		'password' => password_hash('123456', PASSWORD_DEFAULT),
-		'role_id'=> 1
-	],
-	[
-		'name' => 'admin',
-		'email' => 'admin@gmail.com',
-		'password' => password_hash('123456', PASSWORD_DEFAULT),
-		'role_id'=> 2
-	]
-];
-
-
-foreach ($users as $key => $value) {
-	extract($value);
-	$sqlQuery = "insert into users (name, email, password, role_id)
-				value ('$name', '$email', '$password', '$role_id')";
-	execQuery($sqlQuery);
-}
-
-
+$sql = "select * from users";
+$users = execQuery($sql, true);
  ?>
+
+<table>
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php foreach ($users as $u): ?>
+			<?php extract($u); ?>
+			<tr>
+				<td><?php echo $id; ?></td>
+				<td><?php echo $name; ?></td>
+				<td><?php echo $email; ?></td>
+			</tr>
+		<?php endforeach ?>
+		
+	</tbody>
+</table>
