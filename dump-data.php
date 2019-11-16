@@ -56,6 +56,7 @@ foreach ($users as $key => $value) {
 	// execQuery($sqlQuery);
 }
 
+// categories
 for ($i=0; $i < 20; $i++) { 
 	try{
 		$name = $faker->name;
@@ -71,5 +72,8 @@ for ($i=0; $i < 20; $i++) {
 		var_dump($ex->getMessage());
 	}
 }
+
+// products
+// product_galleries
 
  ?>
