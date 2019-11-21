@@ -1,4 +1,5 @@
 <?php 
+session_start();
 require_once './commons/db.php';
 require_once './commons/constants.php';
 require_once './commons/helpers.php';
@@ -123,7 +124,7 @@ $menus = executeQuery($sql, true);
 	                                            <?php } ?>
 	                                        </div>
 	                                        <div class="product-btn">
-	                                            <a href="#" class="btn btn-extra-small btn-dark-border  "><i class="fa fa-shopping-cart"></i> Add to cart</a>
+	                                            <a href="<?php echo BASE_URL . 'add-cart.php?id=' . $pro['id'] ?>" class="btn btn-extra-small btn-dark-border  "><i class="fa fa-shopping-cart"></i> Add to cart</a>
 	                                        </div>
 	                                    </div>
 	                                    <!--product list-->

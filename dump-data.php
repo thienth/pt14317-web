@@ -1,5 +1,6 @@
 <?php 
 require_once './commons/db.php';
+require_once './commons/helpers.php';
 require_once './libs/Faker/autoload.php';
 
 $faker = Faker\Factory::create();
@@ -75,58 +76,99 @@ $faker = Faker\Factory::create();
 
 // products
 // tạo dữ liệu mẫu cho bảng products
-$insertQuery = "";
-	for ($i=0; $i < 30; $i++) { 
+// $insertQuery = "";
+// 	for ($i=0; $i < 30; $i++) { 
 		
-		$name = $faker->name;
-		$sku = strtoupper(uniqid());
-		$cate_id = rand(1, 20);
-		$disabled_comment = rand(0, 1);
-		$price = rand(1000, 99999);
-		$sale_price = rand(1000, 99999);
-		$detail = $faker->realText($maxNbChars = 200, $indexSize = 2);
-		$detail = str_replace("'","\'", $detail);
+// 		$name = $faker->name;
+// 		$sku = strtoupper(uniqid());
+// 		$cate_id = rand(1, 20);
+// 		$disabled_comment = rand(0, 1);
+// 		$price = rand(1000, 99999);
+// 		$sale_price = rand(1000, 99999);
+// 		$detail = $faker->realText($maxNbChars = 200, $indexSize = 2);
+// 		$detail = str_replace("'","\'", $detail);
 
-		$feature_image = $faker->image('public/images', 640, 480, 'cats');
-		$feature_image = str_replace("public/", "", $feature_image);
-		// $feature_image = str_replace("\\", "/", $feature_image);
+// 		$feature_image = $faker->image('public/images', 640, 480, 'cats');
+// 		$feature_image = str_replace("public/", "", $feature_image);
+// 		// $feature_image = str_replace("\\", "/", $feature_image);
 		
-		$view_count = rand(0, 999999);
-		$status = 1;
-		$rating = rand(1, 5);
+// 		$view_count = rand(0, 999999);
+// 		$status = 1;
+// 		$rating = rand(1, 5);
 
-		$sqlQuery = "insert into products 
-						(name, 
-						sku, 
-						cate_id, 
+// 		$sqlQuery = "insert into products 
+// 						(name, 
+// 						sku, 
+// 						cate_id, 
 
-						disabled_comment, 
-						price, 
-						sale_price,
+// 						disabled_comment, 
+// 						price, 
+// 						sale_price,
 						
-						detail,
-						feature_image,
-						view_count,
+// 						detail,
+// 						feature_image,
+// 						view_count,
 
-						status,
-						rating)
-				values ('$name', 
-						'$sku', 
-						'$cate_id', 
+// 						status,
+// 						rating)
+// 				values ('$name', 
+// 						'$sku', 
+// 						'$cate_id', 
 
-						'$disabled_comment', 
-						'$price', 
-						'$sale_price',
+// 						'$disabled_comment', 
+// 						'$price', 
+// 						'$sale_price',
 						
-						'$detail',
-						'$feature_image',
-						'$view_count',
+// 						'$detail',
+// 						'$feature_image',
+// 						'$view_count',
 
-						'$status',
-						'$rating')";
-		$insertQuery .= $sqlQuery . ";";
-	}
-echo $insertQuery;
+// 						'$status',
+// 						'$rating')";
+// 		$insertQuery .= $sqlQuery . ";";
+// 	}
+// echo $insertQuery;
 // product_galleries
+// vouchers
+$vouchers = [
+	[
+		'code' => strtoupper(uniqid()),
+		'start_time' => "2019-11-21 09:40:00",
+		'end_time'=> "2019-12-21 09:40:00",
+		'discount_price' => rand(1000, 3000),
+		'used_count' => rand(1, 10),
+		'status' => 1
+	],
+	[
+		'code' => strtoupper(uniqid()),
+		'start_time' => "2019-11-25 09:40:00",
+		'end_time'=> "2019-11-30 09:40:00",
+		'discount_price' => rand(1000, 3000),
+		'used_count' => rand(1, 10),
+		'status' => 1
+	]
+];
+
+
+foreach ($vouchers as $key => $value) {
+	extract($value);
+	$insertQuery = "insert into vouchers 
+						(code, 
+						start_time, 
+						end_time, 
+
+						discount_price, 
+						used_count, 
+						status)
+					values 
+						('$code', 
+						'$start_time', 
+						'$end_time', 
+
+						'$discount_price', 
+						'$used_count', 
+						'$status')";
+	executeQuery($insertQuery);
+}
 
  ?>

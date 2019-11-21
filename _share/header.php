@@ -1,3 +1,15 @@
+<?php 
+$totalItemOnCart = 0;
+
+if(isset($_SESSION[CART])){
+    $cart = $_SESSION[CART];
+    foreach ($cart as $item) {
+        $totalItemOnCart += $item['quantity'];
+    }
+}
+
+ ?>
+
 <!--header start-->
 <header class="l-header">
 
@@ -29,7 +41,7 @@
                     </li>
 
                     <li class="cart-info">
-                        <a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i> cart(2)</a>
+                        <a href="javascript:void(0)"><i class="fa fa-shopping-cart"></i> cart(<?php echo $totalItemOnCart ?>)</a>
                         <div class="megamenu megamenu-quarter-width ">
                             <div class="megamenu-row">
                                 <div class="col12">
@@ -80,7 +92,7 @@
                                     </div>
                                     <div class="s-cart-btn pull-right">
                                         <a href="shop-cart.html" class="btn btn-small btn-theme-color"> View cart</a>
-                                        <a href="#" class="btn btn-small btn-dark-solid"> Checkout</a>
+                                        <a href="<?php echo BASE_URL . "checkout.php" ?>" class="btn btn-small btn-dark-solid"> Checkout</a>
                                     </div>
                                     <!--cart-->
 
